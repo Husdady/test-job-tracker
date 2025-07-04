@@ -29,8 +29,8 @@ switch (locationStatus) {
 if(data.dateConfirm!=null){
     btnConfirm = (
         <div className="confirmed">
-            <span>Confirmed</span><br/>
-            <span className="reduce">{data.dateConfirm}</span>
+            <div className="confirmedText">Confirmed</div>
+            <div className="reduce">{data.dateConfirm}</div>
         </div>
     ) 
 }

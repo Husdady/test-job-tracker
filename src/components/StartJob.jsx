@@ -34,7 +34,7 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
   });
 
   const [showPreviewOverlay, setShowPreviewOverlay] = useState(false);
-  const [editingIndex, setEditingIndex] = useState(null);
+  
   const mediaRecorderRef = useRef(null);
 
   const handleSaveVideo = () => {
@@ -205,48 +205,6 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
       videos: updatedPhotos,
     }));
   };
-
-  const startRecording2 = () => {
-    if (!videoRef.current || !videoRef.current.srcObject) return;
-  
-    const stream = videoRef.current.srcObject;
-    
-    let mimeType = '';
-  
-    if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
-      mimeType = 'video/webm;codecs=vp9';
-    } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
-      mimeType = 'video/webm;codecs=vp8';
-    } else if (MediaRecorder.isTypeSupported('video/webm')) {
-      mimeType = 'video/webm';
-    } else if (MediaRecorder.isTypeSupported('video/mp4')) {
-      mimeType = 'video/mp4'; // Safari
-    } else {
-      alert('Este navegador no soporta MediaRecorder para video.');
-      return;
-    }
-  
-    const recorder = new MediaRecorder(stream, { mimeType });
-  
-    const chunks = [];
-    recorder.ondataavailable = (e) => {
-      if (e.data.size > 0) {
-        chunks.push(e.data);
-      }
-    };
-  
-    recorder.onstop = () => {
-      const blob = new Blob(chunks, { type: mimeType });
-      const videoUrl = URL.createObjectURL(blob);
-      setCurrentPreviewVideo({ url: videoUrl, comment: "" });
-      setRecordedChunks([]);
-      setShowPreviewOverlay(true);
-      setShowVideoOverlay(false);
-    };
-  
-    //setMediaRecorder(recorder); // Si usas estado para controlarlo
-    recorder.start();
-  };
   
   const startRecording = () => {
     if (!videoRef.current || !videoRef.current.srcObject) return;
@@ -374,7 +332,7 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
       <div className="step-header">
         <h2>Start Job</h2>
 
-        {data.isConfirmed == false && (
+        {data.isConfirmed === false && (
           <button
             onClick={() => {
               setData({ ...data, isConfirmed: true, dateConfirm: getDate() });
@@ -389,10 +347,9 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
 
         {data.isConfirmed && (
           <div className="confirmed">
-            <span>Confirmed</span>
-            <br />
-            <span className="reduce">{data.dateConfirm}</span>
-          </div>
+            <div className="confirmedText">Confirmed</div>
+            <div className="reduce">{data.dateConfirm}</div>
+         </div>
         )}
       </div>
 
@@ -509,7 +466,7 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
             {/* Botón "Take Photo" centrado abajo */}
             <div style={{
               position: 'absolute',
-              bottom: 120,
+              bottom: 140,
               width: '100%',
               display: 'flex',
               justifyContent: 'center',
@@ -656,7 +613,7 @@ export default function StartJob({ data, setData, startJobConfirmed }) {
                 }
               }}
             >
-              +Take Photos
+              +Photos
             </button>
           )}
          &nbsp;&nbsp;          
@@ -882,7 +839,7 @@ const styles = {
     color: "#fff",
     border: "none",
      
-    borderRadius: 8,
+    
     fontSize: 14,
     cursor: "pointer",
     width: "130px"
@@ -893,7 +850,7 @@ const styles = {
     color: "#fff",
     border: "none",
   
-    borderRadius: 8,
+     
     fontSize: 14,
     cursor: "pointer",
   },
@@ -933,7 +890,7 @@ const styles = {
      
     backgroundColor: "#007AFF",
     color: "#fff",
-     borderRadius: 8,
+    
     cursor: "pointer",
     fontSize:"14px",
      textAlign: "center",
@@ -997,7 +954,7 @@ const styles = {
     width: "130px",
     backgroundColor: "white",
     color: "#007aff",
-    border: "1px solid #007aff",
+    border: "1px solid #007aff",  
     fontSize: "12px",
     fontWeight: 600,
     cursor: "pointer",
