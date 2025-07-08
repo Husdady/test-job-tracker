@@ -28,10 +28,9 @@ export default function PhotoApp() {
         <PhotoModal isOpen onRequestClose={photoModal.hide} />
       )}
 
-      <VideoModal
-        isOpen={videoModal.isShowing}
-        onRequestClose={videoModal.hide}
-      />
+      {videoModal.isShowing && (
+        <VideoModal isOpen onRequestClose={videoModal.hide} />
+      )}
     </main>
   );
 }

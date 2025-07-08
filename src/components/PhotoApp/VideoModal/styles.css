@@ -1,4 +1,4 @@
-.photo-modal {
+.video-modal {
   top: 50%;
   left: 50%;
   width: 100%;
@@ -9,7 +9,7 @@
   transform: translate(-50%, -50%);
 }
 
-.photo-modal .wrapper {
+.video-modal .wrapper {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -18,44 +18,44 @@
   overflow-y: auto;
 }
 
-.photo-modal .wrapper .subtitle {
+.video-modal .wrapper .subtitle {
   margin-bottom: 1rem;
 }
 
-.photo-modal .wrapper .camera-box {
+.video-modal .wrapper .video-box {
   width: 100%;
   min-height: 500px;
 }
 
-.photo-modal .wrapper .camera-box video {
+.video-modal .wrapper .video-box video {
   width: 100%;
   min-height: 500px;
   object-fit: cover;
 }
 
-.photo-modal .wrapper .photo {
+.video-modal .wrapper .taken-video {
+  width: 100%;
   min-height: 500px;
+  object-fit: cover;
   border: 5px solid #2f80ed;
 }
 
-.photo-modal .wrapper .photo,
-.photo-modal .wrapper .btn-take-photo {
+.video-modal .wrapper .taken-video,
+.video-modal .wrapper .btn-recording,
+.video-modal .wrapper .btn-stop-recording {
   margin-top: 0.85rem;
 }
 
-.photo-modal .wrapper .btn-take-photo,
-.photo-modal .wrapper .btn-switch-camera {
+.video-modal .wrapper .btn-recording,
+.video-modal .wrapper .btn-preview-video,
+.video-modal .wrapper .btn-stop-recording,
+.video-modal .wrapper .btn-switch-video {
   margin-bottom: 0.5rem;
 }
 
 @media only screen and (min-width: 1025px) {
-  .photo-modal .wrapper {
+  .video-modal .wrapper {
     max-height: 500px;
     min-height: initial;
-  }
-
-  .photo-modal .wrapper .photo,
-  .photo-modal .wrapper .camera-box video {
-    transform: scaleX(-1);
   }
 }

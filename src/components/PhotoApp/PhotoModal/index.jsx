@@ -6,9 +6,11 @@ import ReactModal from "react-modal";
 // Hooks
 import usePhotoModal from "./usePhotoModal";
 
+// Constants
+import { ENVIRONMENT } from "../facing-modes";
+
 // Styles
 import "./styles.css";
-import { ENVIRONMENT } from "../facing-modes";
 
 ReactModal.setAppElement("#root");
 
@@ -33,7 +35,7 @@ export default function PhotoModal(props) {
     <ReactModal
       {...props}
       className="photo-modal"
-      contentLabel="Ejemplo de Modal"
+      contentLabel="Ejemplo de tomar foto desde modal"
     >
       <div className="wrapper">
         <h2 className="subtitle">Photo modal</h2>
@@ -75,7 +77,7 @@ export default function PhotoModal(props) {
           </button>
         )}
 
-        <button className="btn-close" onClick={props.onRequestCloseOpen}>
+        <button className="btn-close" onClick={props.onRequestClose}>
           Cerrar
         </button>
 
@@ -89,5 +91,5 @@ export default function PhotoModal(props) {
 
 PhotoModal.propTypes = {
   isOpen: PropTypes.bool,
-  onRequestCloseOpen: PropTypes.func,
+  onRequestClose: PropTypes.func,
 };
