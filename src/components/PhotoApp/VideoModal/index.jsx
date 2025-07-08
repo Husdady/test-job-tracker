@@ -48,7 +48,6 @@ export default function VideoModal(props) {
         <div className="video-box">
           <Webcam
             audio
-            mirrored
             width={360}
             height={500}
             ref={webcamRef}
@@ -85,7 +84,9 @@ export default function VideoModal(props) {
         )}
 
         {!isCapturing && recordedChunks.length > 0 && !videoUrl && (
-          <button onClick={handlePreview} className="btn-preview-video">👁 Preview Video</button>
+          <button onClick={handlePreview} className="btn-preview-video">
+            👁 Preview Video
+          </button>
         )}
 
         <button className="btn-close" onClick={props.onRequestClose}>

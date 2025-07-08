@@ -58,4 +58,8 @@
     max-height: 500px;
     min-height: initial;
   }
+
+  .video-modal .wrapper .video-box video {
+    transform: scaleX(-1);
+  }
 }
