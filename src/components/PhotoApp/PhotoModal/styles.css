@@ -24,7 +24,12 @@
 .photo-modal .wrapper .camera-box {
   width: 100%;
   min-height: 500px;
-  position: relative;
+}
+
+.photo-modal .wrapper .camera-box video {
+  width: 100%;
+  min-height: 500px;
+  object-fit: cover;
 }
 
 .photo-modal .wrapper .photo {
@@ -32,10 +37,17 @@
   border: 5px solid #2f80ed;
 }
 
+.photo-modal .wrapper .photo,
 .photo-modal .wrapper .btn-take-photo {
-  margin: 1rem 0 0.5rem;
+  margin-top: 0.85rem;
 }
 
+.photo-modal .wrapper .btn-take-photo,
 .photo-modal .wrapper .btn-switch-camera {
   margin-bottom: 0.5rem;
+}
+
+.photo-modal .wrapper .photo,
+.photo-modal .wrapper .camera-box video {
+  transform: scaleX(-1);
 }

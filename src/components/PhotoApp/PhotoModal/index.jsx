@@ -1,7 +1,7 @@
 // Librarys
+import Webcam from "react-webcam";
 import PropTypes from "prop-types";
 import ReactModal from "react-modal";
-import { Camera } from "react-camera-pro";
 
 // Hooks
 import usePhotoModal from "./usePhotoModal";
@@ -9,35 +9,68 @@ import usePhotoModal from "./usePhotoModal";
 // Styles
 import "./styles.css";
 
+ReactModal.setAppElement("#root");
+
+const videoConstraints = {
+  width: 360,
+  height: 500,
+  facingMode: "user",
+  // facingMode: { exact: "environment" },
+};
+
 export default function PhotoModal(props) {
-  const { camera, image, setImage } = usePhotoModal();
+  const { image, setImage, webcamRef } = usePhotoModal();
 
   return (
     <ReactModal
       {...props}
-      preventScroll={false}
       className="photo-modal"
       contentLabel="Ejemplo de Modal"
+      // appElement
     >
       <div className="wrapper">
         <h2 className="subtitle">Photo modal</h2>
 
         <div className="camera-box">
-          <Camera ref={camera} />
+          <Webcam
+            height={500}
+            width={360}
+            audio={false}
+            ref={webcamRef}
+            videoConstraints={videoConstraints}
+            screenshotFormat="image/jpeg"
+            onUserMedia={(...data) => {
+              console.log("Webcam component mounted", data);
+            }}
+            onUserMediaError={(error) => {
+              console.log("Error to mount Webcam compunt", { error });
+            }}
+          />
         </div>
-
-        {image && <img src={image} alt="Taken photo" className="photo" />}
 
         <button
           className="btn-take-photo"
-          onClick={() => setImage(camera.current.takePhoto())}
+          onClick={() => {
+            const screenshot = webcamRef.current.getScreenshot();
+            console.log({ screenshot });
+            setImage(screenshot);
+            // setImage(null);
+
+            // setTimeout(() => {
+            //   const screenshot = webcamRef.current.getScreenshot();
+
+            //   if (screenshot) {
+            //     setImage(screenshot);
+            //   }
+            // }, 50);
+          }}
         >
           Take photo
         </button>
 
         <button
           className="btn-switch-camera"
-          onClick={() => camera.current.switchCamera()}
+          onClick={() => webcamRef.current.switchCamera()}
         >
           Switch camera
         </button>
@@ -45,6 +78,10 @@ export default function PhotoModal(props) {
         <button className="btn-close" onClick={props.onRequestCloseOpen}>
           Cerrar
         </button>
+
+        {image && (
+          <img key={image} src={image} alt="Taken photo" className="photo" />
+        )}
       </div>
     </ReactModal>
   );

@@ -24,10 +24,9 @@ export default function PhotoApp() {
         <button onClick={videoModal.show}>Video</button>
       </div>
 
-      <PhotoModal
-        isOpen={photoModal.isShowing}
-        onRequestClose={photoModal.hide}
-      />
+      {photoModal.isShowing && (
+        <PhotoModal isOpen onRequestClose={photoModal.hide} />
+      )}
 
       <VideoModal
         isOpen={videoModal.isShowing}
