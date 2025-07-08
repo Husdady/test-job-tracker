@@ -79,7 +79,7 @@ export default function VideoModal(props) {
         )}
 
         {initialFacingMode === ENVIRONMENT && (
-          <button className="btn-switch-camera" onClick={toggleFacingMode}>
+          <button className="btn-switch-video" onClick={toggleFacingMode}>
             Switch camera
           </button>
         )}
