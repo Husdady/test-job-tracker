@@ -1,0 +1,17 @@
+.photo-app {
+  margin: auto;
+  max-width: 435px;
+  padding: 20px;
+  margin-top: 2rem;
+  background-color: #f8f8f8;
+}
+
+.photo-app .message {
+  margin-bottom: 1.25rem;
+}
+
+.photo-app .box {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+}

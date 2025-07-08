@@ -1,0 +1,41 @@
+.photo-modal {
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  margin: auto;
+  max-width: 400px;
+  position: absolute;
+  background-color: #ffffff;
+  transform: translate(-50%, -50%);
+}
+
+.photo-modal .wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.photo-modal .wrapper .subtitle {
+  margin-bottom: 1rem;
+}
+
+.photo-modal .wrapper .camera-box {
+  width: 100%;
+  min-height: 500px;
+  position: relative;
+}
+
+.photo-modal .wrapper .photo {
+  margin-top: 1.5rem;
+  border: 5px solid #2f80ed;
+}
+
+.photo-modal .wrapper .btn-take-photo {
+  margin: 1rem 0 0.5rem;
+}
+
+.photo-modal .wrapper .btn-switch-camera {
+  margin-bottom: 0.5rem;
+}

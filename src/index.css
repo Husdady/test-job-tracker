@@ -1,16 +1,17 @@
 body {
   margin: 0;
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 /* Reset básico */
 * {
   box-sizing: border-box;
@@ -19,9 +20,12 @@ code {
 }
 
 body {
-  font-family: 'Montserrat', "Helvetica Neue", sans-serif;
-   
-  color: #333;
+  color: #333333;
+  font-family: "Montserrat", "Helvetica Neue", sans-serif;
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+  background-color: rgba(3, 2, 14, 0.8) !important;
 }
 
 /* Contenedor principal */
@@ -80,7 +84,7 @@ body {
 /* Sección de pasos */
 .step {
   padding: 1.2rem;
-   width: 100%;
+  width: 100%;
 }
 
 .step-header {
@@ -102,7 +106,7 @@ button {
   color: white;
   border: none;
   padding: 0.5rem 1.2rem;
-   
+
   font-size: 0.9rem;
   cursor: pointer;
   transition: background 0.3s;
@@ -148,54 +152,52 @@ button:disabled {
   background: #007bff;
   color: white;
 }
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow-x: hidden; /* Evita scroll horizontal */
 }
 
 .container {
-  width: 100vw;          /* Ocupa todo el ancho del viewport */
-  max-width: 480px;      /* Para centrar en pantallas grandes */
-  margin: 0 auto;        /* Centrado horizontal */
-  min-height: 100vh;     /* Ocupa todo el alto */
+  width: 100vw; /* Ocupa todo el ancho del viewport */
+  max-width: 480px; /* Para centrar en pantallas grandes */
+  margin: 0 auto; /* Centrado horizontal */
+  min-height: 100vh; /* Ocupa todo el alto */
   display: flex;
   flex-direction: column;
 }
-.bodyContent{
-  color:#4f4f4f;
+.bodyContent {
+  color: #4f4f4f;
   font-size: 14px;
 }
-.subTitle{
-  color:#4f4f4f;
-  font-size:  13px ;
+.subTitle {
+  color: #4f4f4f;
+  font-size: 13px;
 }
-.footText{
-  color:#4f4f4f;
-  font-size:  11px ;
+.footText {
+  color: #4f4f4f;
+  font-size: 11px;
 }
-.confirmedText{
+.confirmedText {
   color: gray;
   font-size: 0.8rem;
 }
-.confirmed{
+.confirmed {
   background: #fff;
 
   border: none;
   padding: 0.2rem 1.2rem;
-  
- 
+
   cursor: pointer;
   border: 1px solid gray;
   text-align: center;
   max-height: 40px;
 }
-.reduce{
+.reduce {
   color: gray;
-  font-size: 0.5rem; 
+  font-size: 0.5rem;
 }
-
-
 
 /* === Overlay general === */
 .overlay {
@@ -284,10 +286,9 @@ html, body {
   margin-top: 4px;
 }
 
-
 /*STEP 4*/
-.inProgress{
-  background: #FFF5E7;
+.inProgress {
+  background: #fff5e7;
   color: orange;
   border: none;
   padding: 0.2rem 1.2rem;
@@ -298,25 +299,25 @@ html, body {
   text-align: center;
   max-height: 30px;
 }
-.subTitleStep4{
+.subTitleStep4 {
   font-size: 14px;
-  margin-bottom : 16;
-  text-align : "center";
+  margin-bottom: 16;
+  text-align: "center";
 }
-.subTitleText{
-  color:#007AFF;
+.subTitleText {
+  color: #007aff;
   font-weight: 400;
 }
-.subTitleTextRoom{
+.subTitleTextRoom {
   font-weight: 600;
 }
-.spaceAlt { 
-  margin: 16px 0 
-} 
+.spaceAlt {
+  margin: 16px 0;
+}
 /* STEP 5 */
-.paid{
+.paid {
   width: 120px;
-  background: #E7FFE0;
+  background: #e7ffe0;
   color: #23a756;
   border: none;
   padding: 0.2rem 1.2rem;
@@ -327,40 +328,40 @@ html, body {
   text-align: center;
   max-height: 30px;
 }
-.subTitleTextPaid{
-  color:#23a756;
+.subTitleTextPaid {
+  color: #23a756;
   font-weight: 400;
 }
 /*STEP 1*/
 
-.fields{
-  font-weight : 600;
+.fields {
+  font-weight: 600;
   font-size: 14px;
   margin-bottom: 4;
-} 
+}
 .titleStep {
   color: #333;
   font-size: 14px;
 }
 .subTitleStep {
-  color:  #333 ;
+  color: #333;
   font-size: 12px;
-} 
+}
 .locationBox {
-  background:  #e6f0ff ;
-  color:  #007aff ;
-  padding:  2px 8px ;
-  font-size : 12px;
-  border-radius : 4 ;
-  width:  fit-content ;
-} 
+  background: #e6f0ff;
+  color: #007aff;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 4;
+  width: fit-content;
+}
 .off {
-   background: #c7c7c7 
+  background: #c7c7c7;
 }
 
 /*STEP 4*/
-.processing{
-  background: #E5F0FF;
+.processing {
+  background: #e5f0ff;
   color: #007aff;
   border: none;
   padding: 0.2rem 1.2rem;
