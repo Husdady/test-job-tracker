@@ -14,7 +14,8 @@ ReactModal.setAppElement("#root");
 const videoConstraints = {
   width: 360,
   height: 500,
-  facingMode: "user",
+  // facingMode: "user",
+  facingMode: { exact: "environment" },
   // facingMode: { exact: "environment" },
 };
 
