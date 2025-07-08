@@ -13,7 +13,8 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  max-height: 500px;
+  min-height: 98dvh;
+  max-height: 98dvh;
   overflow-y: auto;
 }
 
@@ -33,6 +34,7 @@
 }
 
 .photo-modal .wrapper .photo {
+  min-height: 500px;
   margin-top: 1.5rem;
   border: 5px solid #2f80ed;
 }
@@ -47,7 +49,14 @@
   margin-bottom: 0.5rem;
 }
 
-.photo-modal .wrapper .photo,
-.photo-modal .wrapper .camera-box video {
-  transform: scaleX(-1);
+@media only screen and (min-width: 1025px) {
+  .photo-modal .wrapper {
+    max-height: 500px;
+    min-height: initial;
+  }
+
+  .photo-modal .wrapper .photo,
+  .photo-modal .wrapper .camera-box video {
+    transform: scaleX(-1);
+  }
 }

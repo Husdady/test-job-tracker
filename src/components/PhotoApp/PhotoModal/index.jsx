@@ -8,26 +8,32 @@ import usePhotoModal from "./usePhotoModal";
 
 // Styles
 import "./styles.css";
+import { ENVIRONMENT } from "../facing-modes";
 
 ReactModal.setAppElement("#root");
 
-const videoConstraints = {
-  width: 360,
-  height: 500,
-  // facingMode: "user",
-  facingMode: { exact: "environment" },
-  // facingMode: { exact: "environment" },
-};
+// const videoConstraints = {
+// width: 360,
+// height: 500,
+// facingMode: "user",
+// facingMode: { exact: "environment" },
+// };
 
 export default function PhotoModal(props) {
-  const { image, setImage, webcamRef } = usePhotoModal();
+  const {
+    image,
+    setImage,
+    webcamRef,
+    facingMode,
+    toggleFacingMode,
+    initialFacingMode,
+  } = usePhotoModal();
 
   return (
     <ReactModal
       {...props}
       className="photo-modal"
       contentLabel="Ejemplo de Modal"
-      // appElement
     >
       <div className="wrapper">
         <h2 className="subtitle">Photo modal</h2>
@@ -38,8 +44,12 @@ export default function PhotoModal(props) {
             width={360}
             audio={false}
             ref={webcamRef}
-            videoConstraints={videoConstraints}
             screenshotFormat="image/jpeg"
+            videoConstraints={{
+              width: 360,
+              height: 500,
+              facingMode: facingMode,
+            }}
             onUserMedia={(...data) => {
               console.log("Webcam component mounted", data);
             }}
@@ -53,28 +63,17 @@ export default function PhotoModal(props) {
           className="btn-take-photo"
           onClick={() => {
             const screenshot = webcamRef.current.getScreenshot();
-            console.log({ screenshot });
             setImage(screenshot);
-            // setImage(null);
-
-            // setTimeout(() => {
-            //   const screenshot = webcamRef.current.getScreenshot();
-
-            //   if (screenshot) {
-            //     setImage(screenshot);
-            //   }
-            // }, 50);
           }}
         >
           Take photo
         </button>
 
-        <button
-          className="btn-switch-camera"
-          onClick={() => webcamRef.current.switchCamera()}
-        >
-          Switch camera
-        </button>
+        {initialFacingMode === ENVIRONMENT && (
+          <button className="btn-switch-camera" onClick={toggleFacingMode}>
+            Switch camera
+          </button>
+        )}
 
         <button className="btn-close" onClick={props.onRequestCloseOpen}>
           Cerrar
