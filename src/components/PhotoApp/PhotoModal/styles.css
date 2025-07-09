@@ -8,6 +8,7 @@
   overflow-y: auto;
   max-height: 100dvh;
   position: absolute;
+  overscroll-behavior: contain;
   background-color: #000000;
   transform: translate(-50%, -50%);
 }
