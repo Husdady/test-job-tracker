@@ -33,17 +33,16 @@
   width: 100%;
 }
 
-.photo-modal .wrapper .camera-box video {
-  width: 100%;
-  /* min-height: 100dvh; */
-  object-fit: cover;
-  min-height: 400px;
-  height: 80dvh;
+.photo-modal .wrapper .photo {
+  border: 5px solid #2f80ed;
 }
 
-.photo-modal .wrapper .photo {
-  min-height: 500px;
-  border: 5px solid #2f80ed;
+.photo-modal .wrapper .photo,
+.photo-modal .wrapper .camera-box video {
+  width: 100%;
+  height: 80dvh;
+  min-height: 400px;
+  object-fit: cover;
 }
 
 .photo-modal .wrapper .btn-take-photo {
@@ -88,13 +87,10 @@
     margin-top: -7.5rem !important;
   }
 
+  .photo-modal .wrapper .photo,
   .photo-modal .wrapper .camera-box video {
     height: initial;
     min-height: 500px;
-  }
-
-  .photo-modal .wrapper .photo,
-  .photo-modal .wrapper .camera-box video {
     transform: scaleX(-1);
   }
 }
