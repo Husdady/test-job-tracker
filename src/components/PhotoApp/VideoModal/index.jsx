@@ -47,7 +47,7 @@ export default function VideoModal(props) {
         <div className="video-box">
           <Webcam
             audio
-            mirrored
+            // mirrored
             ref={webcamRef}
             videoConstraints={{ facingMode }}
             onUserMedia={(...data) => {

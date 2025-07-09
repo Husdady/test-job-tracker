@@ -39,11 +39,13 @@
   .video-modal .wrapper {
     min-height: initial;
   }
+  .video-modal .wrapper .video-box video {
+    transform: scaleX(-1);
+  }
 
   .video-modal .wrapper .taken-video,
   .video-modal .wrapper .video-box video {
     height: initial;
     min-height: 500px;
-    /* transform: scaleX(-1); */
   }
 }
