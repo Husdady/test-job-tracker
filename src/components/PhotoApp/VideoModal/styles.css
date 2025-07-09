@@ -1,43 +1,25 @@
-.video-modal {
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  margin: auto;
-  max-width: 400px;
-  position: absolute;
-  background-color: #ffffff;
-  transform: translate(-50%, -50%);
-}
-
-.video-modal .wrapper {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  min-height: 98dvh;
-  max-height: 98dvh;
-  overflow-y: auto;
-}
-
-.video-modal .wrapper .subtitle {
-  margin-bottom: 1rem;
-}
-
 .video-modal .wrapper .video-box {
   width: 100%;
-  min-height: 500px;
 }
 
-.video-modal .wrapper .video-box video {
-  width: 100%;
-  min-height: 500px;
-  object-fit: cover;
+.video-modal .wrapper .taken-video-box {
+  transform: scaleX(-1);
+  display: inline-block;
 }
 
 .video-modal .wrapper .taken-video {
-  width: 100%;
-  min-height: 500px;
-  object-fit: cover;
   border: 5px solid #2f80ed;
+  /* transform: rotateY(180deg); */
+  /* -webkit-transform: rotateY(180deg); Safari and Chrome */
+  /* -moz-transform: rotateY(180deg); Firefox */
+}
+
+.video-modal .wrapper .taken-video,
+.video-modal .wrapper .video-box video {
+  width: 100%;
+  height: 80dvh;
+  min-height: 400px;
+  object-fit: contain;
 }
 
 .video-modal .wrapper .taken-video,
@@ -55,11 +37,13 @@
 
 @media only screen and (min-width: 1025px) {
   .video-modal .wrapper {
-    max-height: 500px;
     min-height: initial;
   }
 
+  .video-modal .wrapper .taken-video,
   .video-modal .wrapper .video-box video {
-    transform: scaleX(-1);
+    height: initial;
+    min-height: 500px;
+    /* transform: scaleX(-1); */
   }
 }

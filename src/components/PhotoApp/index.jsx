@@ -1,13 +1,13 @@
-// Librarys
-import ReactModal from "react-modal";
+// Components
+import PhotoModal from "./PhotoModal";
+import VideoModal from "./VideoModal";
 
 // Hooks
 import usePhotoApp from "./usePhotoApp";
 
 // Styles
+import "./modal.css";
 import "./styles.css";
-import PhotoModal from "./PhotoModal";
-import VideoModal from "./VideoModal";
 
 export default function PhotoApp() {
   const { photoModal, videoModal } = usePhotoApp();

@@ -14,13 +14,6 @@ import "./styles.css";
 
 ReactModal.setAppElement("#root");
 
-// const videoConstraints = {
-// width: 360,
-// height: 500,
-// facingMode: "user",
-// facingMode: { exact: "environment" },
-// };
-
 export default function PhotoModal(props) {
   const {
     image,
@@ -49,16 +42,10 @@ export default function PhotoModal(props) {
 
         <div className="camera-box">
           <Webcam
-            // height={500}
-            // width={360}
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            videoConstraints={{
-              // width: 360,
-              // height: 500,
-              facingMode: facingMode,
-            }}
+            videoConstraints={{ facingMode }}
             onUserMedia={(...data) => {
               console.log("Webcam component mounted", data);
             }}

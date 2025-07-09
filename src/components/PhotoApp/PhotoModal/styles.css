@@ -1,35 +1,3 @@
-.photo-modal {
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  margin: auto;
-  height: 100dvh;
-  color: #ffffff;
-  overflow-y: auto;
-  max-height: 100dvh;
-  position: absolute;
-  overscroll-behavior: contain;
-  background-color: #000000;
-  transform: translate(-50%, -50%);
-}
-
-.photo-modal .wrapper {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-
-.photo-modal .wrapper .title-box {
-  display: flex;
-  align-items: center;
-  column-gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.photo-modal .wrapper .title-box button {
-  padding: 0.35rem 0.65rem;
-}
-
 .photo-modal .wrapper .camera-box {
   width: 100%;
 }
@@ -43,7 +11,7 @@
   width: 100%;
   height: 80dvh;
   min-height: 400px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .photo-modal .wrapper .btn-take-photo {
@@ -75,11 +43,6 @@
 }
 
 @media only screen and (min-width: 1025px) {
-  .photo-modal {
-    height: 100vh;
-    max-height: 100vh;
-  }
-
   .photo-modal .wrapper {
     min-height: initial;
   }

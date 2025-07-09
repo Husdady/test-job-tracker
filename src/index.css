@@ -24,10 +24,6 @@ body {
   font-family: "Montserrat", "Helvetica Neue", sans-serif;
 }
 
-.ReactModalPortal .ReactModal__Overlay {
-  background-color: rgba(3, 2, 14, 0.8) !important;
-}
-
 /* Contenedor principal */
 .container {
   max-width: 480px;

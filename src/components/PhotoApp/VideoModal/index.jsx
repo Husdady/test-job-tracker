@@ -14,13 +14,6 @@ import "./styles.css";
 
 ReactModal.setAppElement("#root");
 
-// const videoConstraints = {
-// width: 360,
-// height: 500,
-// facingMode: "user",
-// facingMode: { exact: "environment" },
-// };
-
 export default function VideoModal(props) {
   const {
     videoUrl,
@@ -43,19 +36,20 @@ export default function VideoModal(props) {
       contentLabel="Ejemplo de grabar video desde modal"
     >
       <div className="wrapper">
-        <h2 className="subtitle">Video modal</h2>
+        <div className="title-box">
+          <button className="btn-close" onClick={props.onRequestClose}>
+            X
+          </button>
+
+          <h2 className="subtitle">Video modal</h2>
+        </div>
 
         <div className="video-box">
           <Webcam
             audio
-            width={360}
-            height={500}
+            mirrored
             ref={webcamRef}
-            videoConstraints={{
-              width: 360,
-              height: 500,
-              facingMode: facingMode,
-            }}
+            videoConstraints={{ facingMode }}
             onUserMedia={(...data) => {
               console.log("Video Webcam component mounted", data);
             }}
@@ -89,11 +83,19 @@ export default function VideoModal(props) {
           </button>
         )}
 
-        <button className="btn-close" onClick={props.onRequestClose}>
-          Cerrar
-        </button>
+        {videoUrl && (
+          <div className="taken-video-box">
+            <video
+              loop
+              autoPlay
+              src={videoUrl}
+              controls={false}
+              className="taken-video"
+            />
 
-        {videoUrl && <video controls src={videoUrl} className="taken-video" />}
+            <video controls src={videoUrl} className="taken-video" />
+          </div>
+        )}
       </div>
     </ReactModal>
   );

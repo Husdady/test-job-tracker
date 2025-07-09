@@ -1,0 +1,42 @@
+.ReactModalPortal .ReactModal__Overlay {
+  background-color: rgba(3, 2, 14, 0.8) !important;
+}
+
+.ReactModal__Content {
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  margin: auto;
+  height: 100dvh;
+  color: #ffffff;
+  overflow-y: auto;
+  max-height: 100dvh;
+  position: absolute;
+  overscroll-behavior: contain;
+  background-color: #000000;
+  transform: translate(-50%, -50%);
+}
+
+.ReactModal__Content .wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.ReactModal__Content .wrapper .title-box {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ReactModal__Content .wrapper .title-box button {
+  padding: 0.35rem 0.65rem;
+}
+
+@media only screen and (min-width: 1025px) {
+  .ReactModal__Content {
+    height: 100vh;
+    max-height: 100vh;
+  }
+}
