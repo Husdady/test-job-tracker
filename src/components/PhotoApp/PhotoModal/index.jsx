@@ -34,22 +34,29 @@ export default function PhotoModal(props) {
   return (
     <ReactModal
       {...props}
+      preventScroll={false}
       className="photo-modal"
       contentLabel="Ejemplo de tomar foto desde modal"
     >
       <div className="wrapper">
-        <h2 className="subtitle">Photo modal</h2>
+        <div className="title-box">
+          <button className="btn-close" onClick={props.onRequestClose}>
+            X
+          </button>
+
+          <h2 className="subtitle">Photo modal</h2>
+        </div>
 
         <div className="camera-box">
           <Webcam
-            height={500}
-            width={360}
+            // height={500}
+            // width={360}
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             videoConstraints={{
-              width: 360,
-              height: 500,
+              // width: 360,
+              // height: 500,
               facingMode: facingMode,
             }}
             onUserMedia={(...data) => {
@@ -68,7 +75,7 @@ export default function PhotoModal(props) {
             setImage(screenshot);
           }}
         >
-          Take photo
+          📷
         </button>
 
         {initialFacingMode === ENVIRONMENT && (
@@ -76,10 +83,6 @@ export default function PhotoModal(props) {
             Switch camera
           </button>
         )}
-
-        <button className="btn-close" onClick={props.onRequestClose}>
-          Cerrar
-        </button>
 
         {image && (
           <img key={image} src={image} alt="Taken photo" className="photo" />
