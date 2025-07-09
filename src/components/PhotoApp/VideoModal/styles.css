@@ -9,9 +9,6 @@
 
 .video-modal .wrapper .taken-video {
   border: 5px solid #2f80ed;
-  /* transform: rotateY(180deg); */
-  /* -webkit-transform: rotateY(180deg); Safari and Chrome */
-  /* -moz-transform: rotateY(180deg); Firefox */
 }
 
 .video-modal .wrapper .taken-video,
