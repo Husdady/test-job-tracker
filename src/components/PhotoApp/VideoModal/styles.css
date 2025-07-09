@@ -35,10 +35,17 @@
   margin-bottom: 0.5rem;
 }
 
+@media only screen and (max-width: 1024px) {
+  .video-modal .wrapper .taken-video {
+    transform: scaleX(-1);
+  }
+}
+
 @media only screen and (min-width: 1025px) {
   .video-modal .wrapper {
     min-height: initial;
   }
+
   .video-modal .wrapper .video-box video {
     transform: scaleX(-1);
   }
