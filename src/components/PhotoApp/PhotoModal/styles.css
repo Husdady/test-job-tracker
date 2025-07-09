@@ -35,8 +35,10 @@
 
 .photo-modal .wrapper .camera-box video {
   width: 100%;
-  min-height: 100dvh;
+  /* min-height: 100dvh; */
   object-fit: cover;
+  min-height: 400px;
+  height: 80dvh;
 }
 
 .photo-modal .wrapper .photo {
@@ -87,6 +89,7 @@
   }
 
   .photo-modal .wrapper .camera-box video {
+    height: initial;
     min-height: 500px;
   }
 

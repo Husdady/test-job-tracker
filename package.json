@@ -23,6 +23,7 @@
     "build": "CI= react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "commit": "git add . & git commit -m \"Commit changes\" & npm run publish",
     "publish": "git checkout master && git merge test && git push husdady master && git checkout test"
   },
   "eslintConfig": {
