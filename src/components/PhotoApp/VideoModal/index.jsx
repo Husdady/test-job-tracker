@@ -18,9 +18,12 @@ export default function VideoModal(props) {
   const {
     videoUrl,
     webcamRef,
-    facingMode,
-    isCapturing,
     recordedChunks,
+
+    isPortrait,
+    isCapturing,
+
+    facingMode,
     toggleFacingMode,
     initialFacingMode,
 
@@ -45,18 +48,7 @@ export default function VideoModal(props) {
         </div>
 
         <div className="video-box">
-          <Webcam
-            audio
-            // mirrored
-            ref={webcamRef}
-            videoConstraints={{ facingMode }}
-            onUserMedia={(...data) => {
-              console.log("Video Webcam component mounted", data);
-            }}
-            onUserMediaError={(error) => {
-              console.log("Error to mount Video Webcam compunt", { error });
-            }}
-          />
+          <Webcam audio ref={webcamRef} videoConstraints={{ facingMode }} />
         </div>
 
         {isCapturing && (
@@ -90,10 +82,16 @@ export default function VideoModal(props) {
               autoPlay
               src={videoUrl}
               controls={false}
-              className="taken-video"
+              // className="taken-video"
+              className={`taken-video ${isPortrait ? "portrait-video" : ""}`}
             />
 
-            <video controls src={videoUrl} className="taken-video" />
+            <video
+              controls
+              src={videoUrl}
+              // className="taken-video"
+              className={`taken-video ${isPortrait ? "portrait-video" : ""}`}
+            />
           </div>
         )}
       </div>

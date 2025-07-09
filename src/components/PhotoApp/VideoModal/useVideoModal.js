@@ -14,6 +14,7 @@ export default function usePhotoModal() {
   const mediaRecorderRef = useRef(null);
   const [videoUrl, setVideoUrl] = useState(null);
   const [isCapturing, setCapturing] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [facingMode, setFacingMode] = useState(initialFacingMode);
 
@@ -28,11 +29,15 @@ export default function usePhotoModal() {
     setRecordedChunks((prev) => prev.concat(data));
   }, []);
 
-  // Callback for start to capturing screen
+  // Callback for start to capturing
   const handleStartCapture = useCallback(() => {
     setVideoUrl(null);
     setCapturing(true);
     setRecordedChunks([]);
+
+    // Detectar orientación
+    const isPortraitMode = window.innerHeight > window.innerWidth;
+    setIsPortrait(isPortraitMode);
 
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm",
@@ -42,6 +47,7 @@ export default function usePhotoModal() {
       "dataavailable",
       handleDataAvailable
     );
+
     mediaRecorderRef.current.start();
   }, [handleDataAvailable]);
 
@@ -63,9 +69,12 @@ export default function usePhotoModal() {
   return {
     videoUrl: videoUrl,
     webcamRef: webcamRef,
-    facingMode: facingMode,
-    isCapturing: isCapturing,
     recordedChunks: recordedChunks,
+
+    isPortrait: isPortrait,
+    isCapturing: isCapturing,
+
+    facingMode: facingMode,
     toggleFacingMode: toggleFacingMode,
     initialFacingMode: initialFacingMode,
 
