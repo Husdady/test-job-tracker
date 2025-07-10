@@ -47,6 +47,7 @@ export default function VideoModal(props) {
         </div>
 
         {status}
+        {'test'}
 
         {isCapturing && (
           <button className="btn-stop-recording" onClick={stopRecording}>

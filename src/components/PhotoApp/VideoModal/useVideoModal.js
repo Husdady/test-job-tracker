@@ -17,6 +17,7 @@ export default function usePhotoModal() {
   const { status, ...mediaRecorderData } = useReactMediaRecorder({
     audio: true,
     video: true,
+    askPermissionOnMount: true,
     customMediaStream: webcamRef.current?.stream,
   });
 
