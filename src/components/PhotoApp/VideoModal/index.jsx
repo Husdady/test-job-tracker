@@ -16,6 +16,7 @@ ReactModal.setAppElement("#root");
 
 export default function VideoModal(props) {
   const {
+    status,
     webcamRef,
     facingMode,
     isCapturing,
@@ -44,6 +45,8 @@ export default function VideoModal(props) {
         <div className="video-box">
           <Webcam audio ref={webcamRef} videoConstraints={{ facingMode }} />
         </div>
+
+        {status}
 
         {isCapturing && (
           <button className="btn-stop-recording" onClick={stopRecording}>

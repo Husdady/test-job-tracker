@@ -27,6 +27,7 @@ export default function usePhotoModal() {
 
   return {
     ...mediaRecorderData,
+    status: status,
 
     webcamRef: webcamRef,
     facingMode: facingMode,
