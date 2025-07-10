@@ -1,3 +1,20 @@
+// Librarys
+import Webcam from "react-webcam";
+import PropTypes from "prop-types";
+import ReactModal from "react-modal";
+
+// Hooks
+import { useEffect } from "react";
+import useVideoModal from "./useVideoModal";
+
+// Constants
+import { ENVIRONMENT } from "../facing-modes";
+
+// Styles
+import "./styles.css";
+
+ReactModal.setAppElement("#root");
+
 export default function VideoModal(props) {
   const {
     status,
@@ -71,3 +88,8 @@ export default function VideoModal(props) {
     </ReactModal>
   );
 }
+
+VideoModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onRequestClose: PropTypes.func,
+};
