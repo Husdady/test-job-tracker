@@ -71,7 +71,7 @@ export default function VideoModal(props) {
 
         {!isCapturing && recordedChunks.length > 0 && !videoUrl && (
           <button onClick={handlePreview} className="btn-preview-video">
-            👁 Preview Video
+            👁 Preview Video1
           </button>
         )}
 
