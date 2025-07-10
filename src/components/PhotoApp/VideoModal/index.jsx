@@ -11,33 +11,20 @@ import { ENVIRONMENT } from "../facing-modes";
 
 // Styles
 import "./styles.css";
-import PreviewVideo from "./PreviewVideo";
 
 ReactModal.setAppElement("#root");
 
 export default function VideoModal(props) {
   const {
-    videoUrl,
     webcamRef,
-    recordedChunks,
-    mediaBlobUrl,
-    previewStream,
-    startRecording,
-    stopRecording,
-    status,
-
-    isCapturing,
-
     facingMode,
+    isCapturing,
+    mediaBlobUrl,
+    stopRecording,
+    startRecording,
     toggleFacingMode,
     initialFacingMode,
-
-    handlePreview,
-    handleStopCapture,
-    handleStartCapture,
   } = useVideoModal();
-
-  console.log({ status, previewStream });
 
   return (
     <ReactModal
@@ -54,19 +41,25 @@ export default function VideoModal(props) {
           <h2 className="subtitle">Video modal</h2>
         </div>
 
-        {previewStream && <PreviewVideo stream={previewStream} />}
+        <div className="video-box">
+          <Webcam audio ref={webcamRef} videoConstraints={{ facingMode }} />
+        </div>
 
-        {status === "recording" && (
+        {isCapturing && (
           <button className="btn-stop-recording" onClick={stopRecording}>
             Stop recording
           </button>
         )}
 
-        {(status === "idle" ||
-          status === "stopped" ||
-          status === "stopping") && (
+        {!isCapturing && (
           <button className="btn-recording" onClick={startRecording}>
             Start recording
+          </button>
+        )}
+
+        {initialFacingMode === ENVIRONMENT && (
+          <button className="btn-switch-video" onClick={toggleFacingMode}>
+            Switch camera
           </button>
         )}
 
@@ -76,8 +69,9 @@ export default function VideoModal(props) {
               loop
               autoPlay
               controls={false}
-              className="taken-video"
               src={mediaBlobUrl}
+              className="taken-video"
+              // className={`taken-video ${isPortrait ? "portrait-video" : ""}`}
             />
           </div>
         )}

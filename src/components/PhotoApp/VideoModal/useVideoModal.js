@@ -11,18 +11,27 @@ const initialFacingMode = window.innerWidth > 1024 ? USER : ENVIRONMENT;
  * Hook for implements logic of PhotoModal component
  */
 export default function usePhotoModal() {
-  const { status, startRecording, stopRecording, mediaBlobUrl, previewStream } =
-    useReactMediaRecorder({
-      audio: true,
-      video: true,
-      askPermissionOnMount: true,
-    });
+  const webcamRef = useRef(null);
+  const [facingMode, setFacingMode] = useState(initialFacingMode);
+
+  const { status, ...mediaRecorderData } = useReactMediaRecorder({
+    audio: true,
+    video: true,
+    customMediaStream: webcamRef.current?.stream,
+  });
+
+  // Callback for toggle facing mode
+  const toggleFacingMode = useCallback(() => {
+    setFacingMode((prev) => (prev === USER ? ENVIRONMENT : USER));
+  }, []);
 
   return {
-    status: status,
-    mediaBlobUrl: mediaBlobUrl,
-    previewStream: previewStream,
-    stopRecording: stopRecording,
-    startRecording: startRecording,
+    ...mediaRecorderData,
+
+    webcamRef: webcamRef,
+    facingMode: facingMode,
+    toggleFacingMode: toggleFacingMode,
+    initialFacingMode: initialFacingMode,
+    isCapturing: status === "recording",
   };
 }
