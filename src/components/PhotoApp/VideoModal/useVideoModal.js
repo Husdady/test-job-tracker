@@ -1,58 +1,96 @@
-// useVideoModal.js
-import { useRef, useState, useEffect, useCallback } from "react";
-import { useReactMediaRecorder } from "react-media-recorder";
+// Hooks
+import { useRef, useState, useCallback } from "react";
+
+// Utils
+import { rotateVideoWebMToMP4 } from "./utils/processVideo";
+
+// Constants
 import { USER, ENVIRONMENT } from "../facing-modes";
 
 const initialFacingMode = window.innerWidth > 1024 ? USER : ENVIRONMENT;
 
-export default function useVideoModal() {
+/**
+ * Hook for implements logic of PhotoModal component
+ */
+export default function usePhotoModal() {
   const webcamRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const [videoUrl, setVideoUrl] = useState(null);
+  const [isCapturing, setCapturing] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(false);
+  const [recordedChunks, setRecordedChunks] = useState([]);
   const [facingMode, setFacingMode] = useState(initialFacingMode);
-  const [mediaStream, setMediaStream] = useState(null);
 
-  const getStream = useCallback(async (facing = facingMode) => {
-    if (mediaStream) {
-      mediaStream.getTracks().forEach((track) => track.stop());
-    }
-
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: facing },
-        audio: true,
-      });
-
-      setMediaStream(stream);
-    } catch (err) {
-      console.error("Error getting stream:", err);
-    }
-  }, [mediaStream, facingMode]);
-
-  useEffect(() => {
-    getStream(facingMode);
-    return () => {
-      mediaStream?.getTracks().forEach((track) => track.stop());
-    };
-  }, [facingMode]);
-
-  const { status, startRecording, stopRecording, mediaBlobUrl } =
-    useReactMediaRecorder({
-      customMediaStream: mediaStream,
-    });
-
+  // Callback for toggle facing mode
   const toggleFacingMode = useCallback(() => {
     setFacingMode((prev) => (prev === USER ? ENVIRONMENT : USER));
   }, []);
 
+  // Callback for check data available
+  const handleDataAvailable = useCallback(({ data }) => {
+    if (data.size <= 0) return;
+    setRecordedChunks((prev) => prev.concat(data));
+  }, []);
+
+  // Callback for start to capturing
+  const handleStartCapture = useCallback(() => {
+    setVideoUrl(null);
+    setCapturing(true);
+    setRecordedChunks([]);
+
+    // Detectar orientación
+    const isPortraitMode = window.innerHeight > window.innerWidth;
+    setIsPortrait(isPortraitMode);
+
+    mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+      mimeType: "video/webm",
+    });
+
+    mediaRecorderRef.current.addEventListener(
+      "dataavailable",
+      handleDataAvailable
+    );
+
+    mediaRecorderRef.current.start();
+  }, [handleDataAvailable]);
+
+  // Callback for stop to capturing
+  const handleStopCapture = useCallback(() => {
+    mediaRecorderRef.current.stop();
+    setCapturing(false);
+  }, []);
+
+  // Callback for preview video
+  const handlePreview = useCallback(async () => {
+    if (recordedChunks?.length <= 0) return;
+
+    const blob = new Blob(recordedChunks, { type: "video/webm" });
+
+    try {
+      const correctedUrl = await rotateVideoWebMToMP4(blob, isPortrait);
+      setVideoUrl(correctedUrl);
+    } catch (err) {
+      console.error("Error to rotate video:", err);
+      // fallback
+      const fallbackUrl = URL.createObjectURL(blob);
+      setVideoUrl(fallbackUrl);
+    }
+  }, [isPortrait, recordedChunks]);
+
   return {
-    webcamRef,
-    mediaStream,
-    facingMode,
-    initialFacingMode,
-    toggleFacingMode,
-    startRecording,
-    stopRecording,
-    status,
-    mediaBlobUrl,
-    isCapturing: status === "recording",
+    videoUrl: videoUrl,
+    webcamRef: webcamRef,
+    recordedChunks: recordedChunks,
+
+    isPortrait: isPortrait,
+    isCapturing: isCapturing,
+
+    facingMode: facingMode,
+    toggleFacingMode: toggleFacingMode,
+    initialFacingMode: initialFacingMode,
+
+    handlePreview: handlePreview,
+    handleStopCapture: handleStopCapture,
+    handleStartCapture: handleStartCapture,
   };
 }
