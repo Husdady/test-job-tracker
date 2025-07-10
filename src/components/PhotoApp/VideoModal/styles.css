@@ -9,11 +9,6 @@
   width: 100%;
 }
 
-.video-modal .wrapper .taken-video-box {
-  transform: scaleX(-1);
-  display: inline-block;
-}
-
 .video-modal .wrapper .taken-video {
   border: 5px solid #2f80ed;
 }
@@ -41,7 +36,7 @@
 
 @media only screen and (max-width: 1024px) {
   .video-modal .wrapper .taken-video {
-    /* transform: scaleX(-1); */
+    transform: scaleX(-1);
   }
 }
 

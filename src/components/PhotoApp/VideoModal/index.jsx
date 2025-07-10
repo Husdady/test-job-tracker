@@ -76,16 +76,13 @@ export default function VideoModal(props) {
         )}
 
         {videoUrl && (
-          <div className="taken-video-box">
-            <video
-              loop
-              autoPlay
-              src={videoUrl}
-              controls={false}
-              className="taken-video"
-              // className={`taken-video ${isPortrait ? "portrait-video" : ""}`}
-            />
-          </div>
+          <video
+            loop
+            autoPlay
+            src={videoUrl}
+            controls={false}
+            className="taken-video"
+          />
         )}
       </div>
     </ReactModal>
