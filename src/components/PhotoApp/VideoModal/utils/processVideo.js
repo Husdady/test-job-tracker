@@ -1,25 +1,25 @@
-// src/utils/processVideo.js
-import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
+// Librarys
+import { FFmpeg } from "@ffmpeg/ffmpeg";
 
-const ffmpeg = createFFmpeg({ log: true });
+const ffmpeg = new FFmpeg();
 
 export async function rotateVideoWebMToMP4(blob, isPortrait = true) {
-  if (!ffmpeg.isLoaded()) {
+  if (!ffmpeg.loaded) {
     await ffmpeg.load();
   }
 
   const inputName = "input.webm";
   const outputName = "output.mp4";
 
-  ffmpeg.FS("writeFile", inputName, await fetchFile(blob));
+  await ffmpeg.writeFile(inputName, await fetchBlob(blob));
 
-  // Solo rota si es vertical
-  const transposeFilter = isPortrait ? "-vf transpose=1" : "";
+  // Opcional: agregar filtro de rotación solo si es vertical
+  const vfArgs = isPortrait ? ["-vf", "transpose=1"] : [];
 
-  await ffmpeg.run(
+  await ffmpeg.exec([
     "-i",
     inputName,
-    ...transposeFilter.split(" "), // solo si esPortrait
+    ...vfArgs,
     "-c:v",
     "libx264",
     "-preset",
@@ -28,12 +28,18 @@ export async function rotateVideoWebMToMP4(blob, isPortrait = true) {
     "faststart",
     "-pix_fmt",
     "yuv420p",
-    outputName
-  );
+    outputName,
+  ]);
 
-  const data = ffmpeg.FS("readFile", outputName);
+  const data = await ffmpeg.readFile(outputName);
   const correctedBlob = new Blob([data.buffer], { type: "video/mp4" });
   const correctedUrl = URL.createObjectURL(correctedBlob);
 
   return correctedUrl;
+}
+
+// Utilidad para convertir Blob a ArrayBuffer
+async function fetchBlob(blob) {
+  const arrayBuffer = await blob.arrayBuffer();
+  return new Uint8Array(arrayBuffer);
 }
