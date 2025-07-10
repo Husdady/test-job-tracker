@@ -11,6 +11,7 @@ import { ENVIRONMENT } from "../facing-modes";
 
 // Styles
 import "./styles.css";
+import PreviewVideo from "./PreviewVideo";
 
 ReactModal.setAppElement("#root");
 
@@ -19,8 +20,12 @@ export default function VideoModal(props) {
     videoUrl,
     webcamRef,
     recordedChunks,
+    mediaBlobUrl,
+    previewStream,
+    startRecording,
+    stopRecording,
+    status,
 
-    isPortrait,
     isCapturing,
 
     facingMode,
@@ -31,6 +36,8 @@ export default function VideoModal(props) {
     handleStopCapture,
     handleStartCapture,
   } = useVideoModal();
+
+  console.log({ status, previewStream });
 
   return (
     <ReactModal
@@ -47,50 +54,30 @@ export default function VideoModal(props) {
           <h2 className="subtitle">Video modal</h2>
         </div>
 
-        <div className="video-box">
-          <Webcam audio ref={webcamRef} videoConstraints={{ facingMode }} />
-        </div>
+        {previewStream && <PreviewVideo stream={previewStream} />}
 
-        {isCapturing && (
-          <button className="btn-stop-recording" onClick={handleStopCapture}>
+        {status === "recording" && (
+          <button className="btn-stop-recording" onClick={stopRecording}>
             Stop recording
           </button>
         )}
 
-        {!isCapturing && (
-          <button className="btn-recording" onClick={handleStartCapture}>
+        {(status === "idle" ||
+          status === "stopped" ||
+          status === "stopping") && (
+          <button className="btn-recording" onClick={startRecording}>
             Start recording
           </button>
         )}
 
-        {initialFacingMode === ENVIRONMENT && (
-          <button className="btn-switch-video" onClick={toggleFacingMode}>
-            Switch camera
-          </button>
-        )}
-
-        {!isCapturing && recordedChunks.length > 0 && !videoUrl && (
-          <button onClick={handlePreview} className="btn-preview-video">
-            👁 Preview Video
-          </button>
-        )}
-
-        {videoUrl && (
+        {mediaBlobUrl && (
           <div className="taken-video-box">
             <video
               loop
               autoPlay
-              src={videoUrl}
               controls={false}
-              // className="taken-video"
-              className={`taken-video ${isPortrait ? "portrait-video" : ""}`}
-            />
-
-            <video
-              controls
-              src={videoUrl}
-              // className="taken-video"
-              className={`taken-video ${isPortrait ? "portrait-video" : ""}`}
+              className="taken-video"
+              src={mediaBlobUrl}
             />
           </div>
         )}

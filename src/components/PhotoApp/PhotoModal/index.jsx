@@ -44,7 +44,6 @@ export default function PhotoModal(props) {
           <Webcam
             audio={false}
             ref={webcamRef}
-            screenshotFormat="image/jpeg"
             videoConstraints={{ facingMode }}
             onUserMedia={(...data) => {
               console.log("Webcam component mounted", data);

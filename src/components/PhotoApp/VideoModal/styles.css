@@ -41,7 +41,7 @@
 
 @media only screen and (max-width: 1024px) {
   .video-modal .wrapper .taken-video {
-    transform: scaleX(-1);
+    /* transform: scaleX(-1); */
   }
 }
 
