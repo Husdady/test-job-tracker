@@ -14,12 +14,12 @@ export async function rotateVideoWebMToMP4(blob, isPortrait = true) {
   await ffmpeg.writeFile(inputName, await fetchBlob(blob));
 
   // Opcional: agregar filtro de rotación solo si es vertical
-  const vfArgs = isPortrait ? ["-vf", "transpose=1"] : [];
+  // const vfArgs = isPortrait ? ["-vf", "transpose=1"] : [];
 
   await ffmpeg.exec([
     "-i",
     inputName,
-    ...vfArgs,
+    [],
     "-c:v",
     "libx264",
     "-preset",
