@@ -1,24 +1,9 @@
-// Librarys
-import Webcam from "react-webcam";
-import PropTypes from "prop-types";
-import ReactModal from "react-modal";
-
-// Hooks
-import useVideoModal from "./useVideoModal";
-
-// Constants
-import { ENVIRONMENT } from "../facing-modes";
-
-// Styles
-import "./styles.css";
-
-ReactModal.setAppElement("#root");
-
 export default function VideoModal(props) {
   const {
     status,
     webcamRef,
     facingMode,
+    mediaStream,
     isCapturing,
     mediaBlobUrl,
     stopRecording,
@@ -26,6 +11,13 @@ export default function VideoModal(props) {
     toggleFacingMode,
     initialFacingMode,
   } = useVideoModal();
+
+  // Inyecta el stream manual a react-webcam
+  useEffect(() => {
+    if (webcamRef.current && mediaStream) {
+      webcamRef.current.video.srcObject = mediaStream;
+    }
+  }, [mediaStream]);
 
   return (
     <ReactModal
@@ -38,44 +30,40 @@ export default function VideoModal(props) {
           <button className="btn-close" onClick={props.onRequestClose}>
             X
           </button>
-
           <h2 className="subtitle">Video modal</h2>
         </div>
 
         <div className="video-box">
-          <Webcam audio ref={webcamRef} videoConstraints={{ facingMode }} />
+          <Webcam
+            ref={webcamRef}
+            audio={false}
+            mirrored={facingMode === "user"}
+            videoConstraints={false}
+            style={{ width: "100%", height: "auto" }}
+          />
         </div>
 
-        {status}
-        {'test'}
-
-        {isCapturing && (
-          <button className="btn-stop-recording" onClick={stopRecording}>
-            Stop recording
-          </button>
-        )}
-
-        {!isCapturing && (
-          <button className="btn-recording" onClick={startRecording}>
-            Start recording
-          </button>
-        )}
-
-        {initialFacingMode === ENVIRONMENT && (
-          <button className="btn-switch-video" onClick={toggleFacingMode}>
-            Switch camera
-          </button>
-        )}
+        <div style={{ margin: "10px 0" }}>
+          <div>{status}</div>
+          {isCapturing ? (
+            <button onClick={stopRecording}>Stop Recording</button>
+          ) : (
+            <button onClick={startRecording}>Start Recording</button>
+          )}
+          {initialFacingMode === ENVIRONMENT && (
+            <button onClick={toggleFacingMode}>Switch Camera</button>
+          )}
+        </div>
 
         {mediaBlobUrl && (
           <div className="taken-video-box">
             <video
               loop
               autoPlay
-              controls={false}
+              controls
               src={mediaBlobUrl}
               className="taken-video"
-              // className={`taken-video ${isPortrait ? "portrait-video" : ""}`}
+              style={{ width: "100%" }}
             />
           </div>
         )}
@@ -83,8 +71,3 @@ export default function VideoModal(props) {
     </ReactModal>
   );
 }
-
-VideoModal.propTypes = {
-  isOpen: PropTypes.bool,
-  onRequestClose: PropTypes.func,
-};
